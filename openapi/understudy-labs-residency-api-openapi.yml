@@ -1,0 +1,253 @@
+openapi: 3.1.0
+info:
+  title: Understudy Desktop Agent Capabilities Residency API
+  version: 2.2.0
+  description: Authenticated loopback API for agents operating a running Understudy Desktop app. The desktop capability file supplies the ephemeral base URL and bearer token. Prompts, images, traces, and model outputs remain local unless a caller explicitly selects a remote route.
+servers:
+- url: http://127.0.0.1:{port}
+  description: Discovered from the private desktop capability file
+  variables:
+    port:
+      default: '17790'
+security:
+- desktopBearer: []
+tags:
+- name: Residency
+paths:
+  /v1/residency:
+    get:
+      operationId: desktopResidency
+      summary: Inspect local model residency and unified-memory budget
+      responses:
+        '200':
+          description: Residency snapshot
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResidencySnapshot'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Residency
+  /v1/residency/slots:
+    post:
+      operationId: desktopResidencyAddSlot
+      summary: Add an empty local model residency slot
+      responses:
+        '200':
+          description: Slot added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotOperationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Residency
+  /v1/residency/assign:
+    post:
+      operationId: desktopResidencyAssign
+      summary: Assign an installed model to a residency slot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignSlotRequest'
+      responses:
+        '200':
+          description: Model assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotOperationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Residency
+  /v1/residency/warm:
+    post:
+      operationId: desktopResidencyWarm
+      summary: Warm the assigned model asynchronously
+      requestBody:
+        $ref: '#/components/requestBodies/SlotAction'
+      responses:
+        '200':
+          description: Warm-up started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotOperationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Residency
+  /v1/residency/cool:
+    post:
+      operationId: desktopResidencyCool
+      summary: Stop the model process in a residency slot
+      requestBody:
+        $ref: '#/components/requestBodies/SlotAction'
+      responses:
+        '200':
+          description: Slot cooled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotOperationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Residency
+  /v1/residency/remove:
+    post:
+      operationId: desktopResidencyRemove
+      summary: Remove a residency slot
+      requestBody:
+        $ref: '#/components/requestBodies/SlotAction'
+      responses:
+        '200':
+          description: Slot removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotOperationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Residency
+components:
+  requestBodies:
+    SlotAction:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SlotActionRequest'
+  schemas:
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
+    SlotActionRequest:
+      type: object
+      required:
+      - slot_id
+      properties:
+        slot_id:
+          type: integer
+          minimum: 1
+      additionalProperties: false
+    SlotOperationResponse:
+      type: object
+      required:
+      - ok
+      - slot_id
+      properties:
+        ok:
+          const: true
+        slot_id:
+          type: integer
+          minimum: 1
+        state:
+          type: string
+      additionalProperties: true
+    ResidencySnapshot:
+      type: object
+      required:
+      - slots
+      - used_gb
+      - usable_gb
+      properties:
+        slots:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - state
+            properties:
+              id:
+                type: integer
+                minimum: 1
+              model_id:
+                type:
+                - string
+                - 'null'
+              model_path:
+                description: Exact local weights path accepted by the slot's provider server.
+                type:
+                - string
+                - 'null'
+              state:
+                type: string
+                enum:
+                - running
+                - loading
+                - stopped
+                - error
+            additionalProperties: true
+        used_gb:
+          type: number
+          minimum: 0
+        usable_gb:
+          type: number
+          minimum: 0
+      additionalProperties: true
+    AssignSlotRequest:
+      type: object
+      required:
+      - slot_id
+      - model_id
+      properties:
+        slot_id:
+          type: integer
+          minimum: 1
+        model_id:
+          type: string
+          minLength: 1
+      additionalProperties: false
+  responses:
+    Unauthorized:
+      description: Missing or invalid desktop bearer token
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    desktopBearer:
+      type: http
+      scheme: bearer
+      description: Ephemeral token read from the owner-only desktop capability file. Agents should use the Understudy CLI or MCP adapter instead of printing this token.
+x-understudy-discovery:
+  capability_file: ~/.understudy/desktop-api.json
+  capability_schema: understudy.desktop_api.v2
+  required_file_mode: '0600'
+  recommended_adapter: understudy desktop
+x-understudy-extension-surfaces:
+  available_via_versioned_rest_mcp_and_cli:
+  - runtime status
+  - model inventory and certified catalog
+  - model download lifecycle
+  - residency slot lifecycle
+  - local correction-pair export and supervision metrics
+  not_yet_versioned_in_v2_rest:
+  - conversation inspect, branch, compact, and resume
+  - runtime and CLI diagnostics with repair actions
+  - general capture export outside desktop supervision
+  - resumable desktop-wide event subscription

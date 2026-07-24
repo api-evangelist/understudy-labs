@@ -1,0 +1,229 @@
+openapi: 3.1.0
+info:
+  title: Understudy Desktop Agent Capabilities Conversations API
+  version: 2.2.0
+  description: Authenticated loopback API for agents operating a running Understudy Desktop app. The desktop capability file supplies the ephemeral base URL and bearer token. Prompts, images, traces, and model outputs remain local unless a caller explicitly selects a remote route.
+servers:
+- url: http://127.0.0.1:{port}
+  description: Discovered from the private desktop capability file
+  variables:
+    port:
+      default: '17790'
+security:
+- desktopBearer: []
+tags:
+- name: Conversations
+paths:
+  /v1/conversations/{session_id}/turns:
+    post:
+      operationId: conversationTurn
+      summary: Run one local conversation turn and stream canonical events
+      parameters:
+      - $ref: '#/components/parameters/SessionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversationTurnRequest'
+      responses:
+        '200':
+          description: One RuntimeEventEnvelope per line. The accepted identity is repeated in x-understudy-run-id and x-understudy-session-id.
+          headers:
+            x-understudy-run-id:
+              required: true
+              schema:
+                $ref: '#/components/schemas/AgentId'
+            x-understudy-session-id:
+              required: true
+              schema:
+                $ref: '#/components/schemas/AgentId'
+          content:
+            application/x-ndjson:
+              schema:
+                $ref: '#/components/schemas/RuntimeEventEnvelope'
+              x-understudy-stream-item: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '503':
+          $ref: '#/components/responses/Unavailable'
+      tags:
+      - Conversations
+components:
+  responses:
+    Conflict:
+      description: The run or session identity is already active
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unavailable:
+      description: The packaged ConversationRuntime could not be started or diagnosed
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid desktop bearer token
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    SessionId:
+      name: session_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AgentId'
+  schemas:
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
+    RuntimeEventEnvelope:
+      type: object
+      required:
+      - schema_version
+      - event_id
+      - run_id
+      - session_id
+      - runtime_id
+      - sequence
+      - emitted_at
+      - event
+      - data
+      properties:
+        schema_version:
+          const: understudy-conversation-runtime-event-v1
+        event_id:
+          type: string
+          minLength: 1
+        run_id:
+          $ref: '#/components/schemas/AgentId'
+        session_id:
+          $ref: '#/components/schemas/AgentId'
+        runtime_id:
+          type: string
+          minLength: 1
+        sequence:
+          type: integer
+          minimum: 0
+        emitted_at:
+          type: string
+          format: date-time
+        event:
+          type: string
+          enum:
+          - message
+          - delta
+          - reasoning_delta
+          - tool_call
+          - tool_result
+          - usage
+          - supervisor_verdict
+          - student_interruption
+          - teacher_continuation
+          - cancellation
+          - error
+          - image_attachment
+          - compaction_boundary
+        data:
+          type: object
+          additionalProperties: true
+      additionalProperties: false
+    ImageUpload:
+      type: object
+      required:
+      - filename
+      - mediaType
+      - dataUrl
+      properties:
+        filename:
+          type: string
+          minLength: 1
+          maxLength: 200
+        mediaType:
+          type: string
+          pattern: ^image/
+        dataUrl:
+          type: string
+          pattern: ^data:image/
+      additionalProperties: false
+    ConversationTurnRequest:
+      type: object
+      required:
+      - slotId
+      properties:
+        slotId:
+          type: integer
+          minimum: 1
+        supervisorSlotId:
+          type: integer
+          minimum: 1
+          description: Optional distinct warm model that judges the student and continues after an interruption. When present, canonical events attribute student, supervisor, and teacher usage separately.
+        text:
+          type: string
+          default: ''
+        runId:
+          $ref: '#/components/schemas/AgentId'
+        maxTokens:
+          type: integer
+          minimum: 1
+          maximum: 65536
+        attachments:
+          type: array
+          maxItems: 4
+          items:
+            $ref: '#/components/schemas/ImageUpload'
+          default: []
+      anyOf:
+      - required:
+        - text
+        properties:
+          text:
+            type: string
+            minLength: 1
+      - required:
+        - attachments
+        properties:
+          attachments:
+            type: array
+            minItems: 1
+      additionalProperties: false
+    AgentId:
+      type: string
+      minLength: 1
+      maxLength: 200
+      pattern: ^[A-Za-z0-9._:-]+$
+  securitySchemes:
+    desktopBearer:
+      type: http
+      scheme: bearer
+      description: Ephemeral token read from the owner-only desktop capability file. Agents should use the Understudy CLI or MCP adapter instead of printing this token.
+x-understudy-discovery:
+  capability_file: ~/.understudy/desktop-api.json
+  capability_schema: understudy.desktop_api.v2
+  required_file_mode: '0600'
+  recommended_adapter: understudy desktop
+x-understudy-extension-surfaces:
+  available_via_versioned_rest_mcp_and_cli:
+  - runtime status
+  - model inventory and certified catalog
+  - model download lifecycle
+  - residency slot lifecycle
+  - local correction-pair export and supervision metrics
+  not_yet_versioned_in_v2_rest:
+  - conversation inspect, branch, compact, and resume
+  - runtime and CLI diagnostics with repair actions
+  - general capture export outside desktop supervision
+  - resumable desktop-wide event subscription

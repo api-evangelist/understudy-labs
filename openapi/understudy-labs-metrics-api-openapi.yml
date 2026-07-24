@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: Understudy Desktop Agent Capabilities Metrics API
+  version: 2.2.0
+  description: Authenticated loopback API for agents operating a running Understudy Desktop app. The desktop capability file supplies the ephemeral base URL and bearer token. Prompts, images, traces, and model outputs remain local unless a caller explicitly selects a remote route.
+servers:
+- url: http://127.0.0.1:{port}
+  description: Discovered from the private desktop capability file
+  variables:
+    port:
+      default: '17790'
+security:
+- desktopBearer: []
+tags:
+- name: Metrics
+paths:
+  /v1/metrics/chat-routes:
+    get:
+      operationId: desktopMigrationStatus
+      summary: Inspect the rolling Pi adoption and Rust fallback deletion gate
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 250
+      responses:
+        '200':
+          description: Rolling canonical-runtime adoption metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MigrationStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Metrics
+components:
+  schemas:
+    MigrationStatus:
+      type: object
+      required:
+      - schema_version
+      - app_version
+      - runtime_version
+      - observed_row_limit
+      - required_canonical_runtime_rows
+      - remaining_canonical_runtime_rows
+      - canonical_runtime_rows
+      - pi_runtime_rows
+      - compatibility_fallback_rows
+      - pi_runtime_share
+      - compatibility_engine_delete_ready
+      - groups
+      properties:
+        schema_version:
+          const: understudy.chat_route_metrics.v1
+        app_version:
+          type: string
+          minLength: 1
+        runtime_version:
+          type: string
+          minLength: 1
+        observed_row_limit:
+          type: integer
+          minimum: 1
+          maximum: 500
+        required_canonical_runtime_rows:
+          const: 100
+        remaining_canonical_runtime_rows:
+          type: integer
+          minimum: 0
+          maximum: 100
+        canonical_runtime_rows:
+          type: integer
+          minimum: 0
+        pi_runtime_rows:
+          type: integer
+          minimum: 0
+        compatibility_fallback_rows:
+          type: integer
+          minimum: 0
+        pi_runtime_share:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 1
+        compatibility_engine_delete_ready:
+          type: boolean
+        groups:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
+  responses:
+    Unauthorized:
+      description: Missing or invalid desktop bearer token
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    desktopBearer:
+      type: http
+      scheme: bearer
+      description: Ephemeral token read from the owner-only desktop capability file. Agents should use the Understudy CLI or MCP adapter instead of printing this token.
+x-understudy-discovery:
+  capability_file: ~/.understudy/desktop-api.json
+  capability_schema: understudy.desktop_api.v2
+  required_file_mode: '0600'
+  recommended_adapter: understudy desktop
+x-understudy-extension-surfaces:
+  available_via_versioned_rest_mcp_and_cli:
+  - runtime status
+  - model inventory and certified catalog
+  - model download lifecycle
+  - residency slot lifecycle
+  - local correction-pair export and supervision metrics
+  not_yet_versioned_in_v2_rest:
+  - conversation inspect, branch, compact, and resume
+  - runtime and CLI diagnostics with repair actions
+  - general capture export outside desktop supervision
+  - resumable desktop-wide event subscription

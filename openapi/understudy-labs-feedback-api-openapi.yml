@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: Understudy Desktop Agent Capabilities Feedback API
+  version: 2.2.0
+  description: Authenticated loopback API for agents operating a running Understudy Desktop app. The desktop capability file supplies the ephemeral base URL and bearer token. Prompts, images, traces, and model outputs remain local unless a caller explicitly selects a remote route.
+servers:
+- url: http://127.0.0.1:{port}
+  description: Discovered from the private desktop capability file
+  variables:
+    port:
+      default: '17790'
+security:
+- desktopBearer: []
+tags:
+- name: Feedback
+paths:
+  /v1/feedback/supervisor:
+    post:
+      operationId: recordSupervisorFeedback
+      summary: Record a human judgment for one identified supervisor decision
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupervisorFeedbackRequest'
+      responses:
+        '200':
+          description: Judgment recorded idempotently for the marker
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Feedback
+components:
+  schemas:
+    OkResponse:
+      type: object
+      required:
+      - ok
+      properties:
+        ok:
+          const: true
+      additionalProperties: true
+    SupervisorFeedbackRequest:
+      type: object
+      required:
+      - sessionId
+      - runId
+      - markerId
+      - stage
+      - helpful
+      - correctAction
+      properties:
+        sessionId:
+          $ref: '#/components/schemas/AgentId'
+        runId:
+          $ref: '#/components/schemas/AgentId'
+        markerId:
+          type: string
+          minLength: 1
+          maxLength: 500
+        stage:
+          type: string
+          enum:
+          - continue
+          - nudge
+          - take_over
+          - stop
+        helpful:
+          type: boolean
+        correctAction:
+          type: string
+          enum:
+          - continue
+          - nudge
+          - interrupt
+          - stop
+        justification:
+          type: string
+          maxLength: 4000
+      additionalProperties: false
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
+    AgentId:
+      type: string
+      minLength: 1
+      maxLength: 200
+      pattern: ^[A-Za-z0-9._:-]+$
+  responses:
+    Unauthorized:
+      description: Missing or invalid desktop bearer token
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    desktopBearer:
+      type: http
+      scheme: bearer
+      description: Ephemeral token read from the owner-only desktop capability file. Agents should use the Understudy CLI or MCP adapter instead of printing this token.
+x-understudy-discovery:
+  capability_file: ~/.understudy/desktop-api.json
+  capability_schema: understudy.desktop_api.v2
+  required_file_mode: '0600'
+  recommended_adapter: understudy desktop
+x-understudy-extension-surfaces:
+  available_via_versioned_rest_mcp_and_cli:
+  - runtime status
+  - model inventory and certified catalog
+  - model download lifecycle
+  - residency slot lifecycle
+  - local correction-pair export and supervision metrics
+  not_yet_versioned_in_v2_rest:
+  - conversation inspect, branch, compact, and resume
+  - runtime and CLI diagnostics with repair actions
+  - general capture export outside desktop supervision
+  - resumable desktop-wide event subscription
