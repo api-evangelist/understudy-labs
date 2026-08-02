@@ -1,0 +1,64 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.understudylabs.com
+standards:
+- id: anthropic-messages-api-compat
+  conforms: true
+  evidence: POST /v1/messages and /v1/messages/count_tokens speak the Anthropic
+    Messages wire format; passthrough bodies forward and return unmodified
+    (https://docs.understudylabs.com/reference/proxy-endpoints).
+- id: openai-chat-completions-compat
+  conforms: true
+  evidence: POST /v1/chat/completions and GET /v1/models speak the OpenAI wire
+    format; catalog models requested by public id
+    (https://docs.understudylabs.com/reference/proxy-endpoints).
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server on api.understudylabs.com
+    returns resource / authorization_servers / bearer_methods_supported metadata
+    plus a WorkOS agent_auth extension
+    (well-known/understudy-labs-oauth-authorization-server.json).
+- id: oauth2
+  conforms: false
+  evidence: No OAuth 2.0 authorization flows or scopes are published; auth is
+    org-scoped sk_* API keys plus an agent-native email-assertion registration
+    flow.
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration (404 probed 2026-07-21).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom {type, message, request_id} envelope, not
+    application/problem+json (https://docs.understudylabs.com/reference/errors).
+- id: cursor-pagination
+  conforms: true
+  evidence: Control-plane list endpoints take ?limit= and opaque ?cursor= and
+    return the next cursor (https://docs.understudylabs.com/reference/control-plane).
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key mechanism documented; only the ensure-default
+    project endpoint is documented idempotent.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset/Deprecation header support documented.
+- id: uuidv7-request-ids
+  conforms: true
+  evidence: x-understudy-request-id is documented as UUIDv7 on every response
+    (https://docs.understudylabs.com/reference/response-headers).
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on understudylabs.com,
+    app.understudylabs.com, and api.understudylabs.com (probed 2026-07-21).
+- id: llms-txt
+  conforms: true
+  evidence: Published at https://understudylabs.com/llms.txt and
+    https://docs.understudylabs.com/llms.txt with a full docs export.
+- id: openapi-3.1
+  conforms: true
+  evidence: Desktop Agent API ships a packaged OpenAPI 3.1.0 contract
+    (schemas/understudy.desktop_api.v2.openapi.json in understudy-agent-tools;
+    printed by `understudy desktop contract`).
+- id: mcp
+  conforms: true
+  evidence: '`understudy explore mcp` is a stdio MCP server in the MIT-licensed
+    agent-tools repo; MCP is also an adapter onto the Desktop runtime.'

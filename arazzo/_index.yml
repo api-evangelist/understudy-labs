@@ -1,0 +1,9 @@
+generated: '2026-07-21'
+method: derived
+workflows:
+- file: understudy-labs-download-warm-and-chat.yml
+  workflowId: download-warm-and-chat
+  title: Download, warm, and chat with a local model on Understudy Desktop
+  summary: Catalog browse, model download with polling, residency slot add /
+    assign / warm, then a conversation turn with streamed run events - the core
+    local-model journey over the loopback Desktop Agent API.

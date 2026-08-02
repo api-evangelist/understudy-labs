@@ -1,0 +1,78 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.understudylabs.com/reference/request-headers
+docs:
+- https://docs.understudylabs.com/reference/request-headers
+- https://docs.understudylabs.com/reference/response-headers
+- https://docs.understudylabs.com/reference/control-plane
+authentication:
+  style: sk_* API key; x-api-key (Anthropic shape) or Authorization Bearer (OpenAI
+    shape and all control-plane routes)
+  artifact: authentication/understudy-labs-authentication.yml
+idempotency:
+  supported: false
+  notes: No idempotency-key header or retry-safety contract is documented for the
+    gateway or control plane. The default rehearsal-project ensure endpoint
+    (POST /admin/v1/orgs/:org_id/projects/default) is documented as idempotent,
+    but there is no general idempotency mechanism.
+pagination:
+  style: cursor
+  request_params:
+  - limit (1-100; default 20 on project lists, 25 on capture lists)
+  - cursor (opaque; pass back verbatim)
+  response_fields:
+  - cursor (next page when more exist)
+  - truncated
+  - scanned_through (workload capture lists only - oldest day the scan examined;
+    a zero-row page with a cursor means keep paging)
+scoping:
+  headers:
+  - header: x-understudy-project
+    value: project slug (default rehearsal)
+  - header: x-understudy-workload
+    value: workload name (default main)
+  model: two-level org -> project -> workload scoping; every control-plane route
+    nests under /orgs/:org_id and must match the credential's organization
+metadata_tags:
+  header: x-understudy-tags
+  format: flat JSON object of string values
+  limits:
+    entries: 16 max
+    keys: lowercase alphanumerics and hyphens, 1-64 chars (^[a-z0-9][a-z0-9-]*$)
+    values: strings, max 256 bytes each
+  errors: malformed tags fail with 400 invalid_request_error naming the offending
+    key - no silent truncation
+request_tracing:
+  header: x-understudy-request-id
+  format: UUIDv7
+  notes: On every response including errors; names the capture and is the support
+    handle.
+response_legibility_headers:
+- header: x-understudy-mode
+  values: [managed, byo]
+  meaning: whose credential paid for the upstream call
+- header: x-understudy-route
+  values: [primary, understudy, fallback]
+  meaning: which arm served the request
+- header: x-understudy-effective-model
+  meaning: the model that actually ran after any rewrite
+versioning:
+  scheme: uri-path
+  paths: [/v1 (gateway), /admin/v1, /customer/v1 (control plane)]
+  stability: control plane is in private preview; additive change expected,
+    breaking changes announced to design partners (see lifecycle/)
+error_envelope:
+  artifact: errors/understudy-labs-problem-types.yml
+  shape: '{type, message, request_id}'
+rate_limit_signaling:
+  status: 429 rate_limit_error at gateway level; upstream 429s pass through in
+    provider format. No numeric published limits or rate-limit response headers
+    documented.
+compatibility:
+  contract: In passthrough, bodies forward unmodified and responses return
+    unmodified. When routed, body.model is rewritten to the serving model; the
+    original is preserved in the capture envelope as requested_model.
+cross_links:
+  errors: errors/understudy-labs-problem-types.yml
+  authentication: authentication/understudy-labs-authentication.yml
+  lifecycle: lifecycle/understudy-labs-lifecycle.yml

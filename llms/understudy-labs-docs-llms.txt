@@ -1,0 +1,57 @@
+# Understudy docs
+
+> Docs for the Understudy LLM gateway, control plane, capture pipeline, routing, managed models, Desktop, and open-source agent tools.
+
+Understudy is an LLM gateway and optimization platform. The docs cover the drop-in Anthropic/OpenAI-compatible gateway, request capture, project/workload scoping, model routing, managed catalog calls, control-plane APIs, Desktop, portable local task models, and the open-source agent tools used to collect evidence and run optimization loops.
+
+## Documentation sets
+- [Full docs export](https://docs.understudylabs.com/llms-full.txt): Expanded single-file index of every public docs page.
+
+## Getting started
+- [Introduction](https://docs.understudylabs.com): What Understudy is, what the gateway does, and how these docs are organized.
+- [Quickstart](https://docs.understudylabs.com/quickstart): From an sk_* key to a captured request in five minutes — both connection paths.
+- [Your workspace](https://docs.understudylabs.com/workspace): What signup creates for you, and a map of the dashboard's pages.
+- [Authentication](https://docs.understudylabs.com/authentication): Understudy keys: how to send them, where they work, how to manage them.
+
+## Tutorials
+- [First captured request](https://docs.understudylabs.com/tutorials/first-captured-request): Zero to a recorded request/response pair you can read in the dashboard.
+- [Replace a model on live traffic](https://docs.understudylabs.com/tutorials/replace-a-model): The whole loop: isolate a call site, baseline it, route 5%, compare, ratchet.
+- [Build an eval set from captures](https://docs.understudylabs.com/tutorials/build-an-eval-set): Use tags and sampling so the captures you collect become a dataset, not a pile.
+
+## Concepts
+- [Architecture](https://docs.understudylabs.com/concepts/architecture): The data plane, the control plane, and the five-phase request pipeline.
+- [Projects & workloads](https://docs.understudylabs.com/concepts/projects-and-workloads): The two-level scoping model that organizes traffic, captures, and routing.
+- [Modes: BYO & managed](https://docs.understudylabs.com/concepts/modes): Whose credential pays for the upstream call, and what each mode permits.
+- [Routing](https://docs.understudylabs.com/concepts/routing): Passthrough, model routes, traffic percentages, the catalog arm, and fallback.
+- [Capture](https://docs.understudylabs.com/concepts/capture): What the gateway records, how sampling works, and what the envelope contains.
+
+## Guides
+- [Route a workload](https://docs.understudylabs.com/guides/route-a-workload): Shift a slice of live traffic onto a managed model, verify, and ratchet up.
+- [Scope with projects](https://docs.understudylabs.com/guides/scope-with-projects): Keep environments and product surfaces isolated using scoping headers.
+- [Tag requests](https://docs.understudylabs.com/guides/tag-requests): Attach your own dimensions to captures with x-understudy-tags.
+
+## Gateway API
+- [Proxy endpoints](https://docs.understudylabs.com/reference/proxy-endpoints): The OpenAI- and Anthropic-compatible surface at api.understudylabs.com.
+- [Request headers](https://docs.understudylabs.com/reference/request-headers): Every x-understudy-* header you can send, with limits.
+- [Response headers](https://docs.understudylabs.com/reference/response-headers): The legibility headers that tell you how each request resolved.
+- [Errors](https://docs.understudylabs.com/reference/errors): The error envelope and every error type the gateway returns.
+
+## Control plane API
+- [Overview](https://docs.understudylabs.com/reference/control-plane): Auth, conventions, and the path families behind the dashboard and the CLI.
+- [API keys](https://docs.understudylabs.com/reference/control-plane/keys): List, create, and revoke sk_* keys programmatically.
+- [Projects](https://docs.understudylabs.com/reference/control-plane/projects): Create, list, rename, and soft-delete projects; ensure the default.
+- [Workloads & routing](https://docs.understudylabs.com/reference/control-plane/workloads-routing): Workload CRUD, the model catalog, and the route write endpoints.
+- [Captures](https://docs.understudylabs.com/reference/control-plane/captures): List capture objects and fetch a single envelope by request id.
+- [Evaluations & cohorts](https://docs.understudylabs.com/reference/control-plane/evaluations): Select redacted workload captures, freeze a cohort, and materialize it locally with audited short-lived exports.
+- [Reporting & health](https://docs.understudylabs.com/reference/control-plane/reporting): Routing status, provider health metrics, and compact status summary — self-service diagnostics.
+
+## Open source
+- [Agent tools](https://docs.understudylabs.com/open-source/agent-tools): The MIT-licensed local client: skills for coding agents plus a thin CLI.
+- [CLI reference](https://docs.understudylabs.com/open-source/cli): Every understudy command in the public CLI, with the first hosted journey.
+- [Desktop & local task models](https://docs.understudylabs.com/open-source/desktop-task-models): Install a portable classifier, satisfy its base-model dependency, and test new examples locally.
+- [.understudy-model format](https://docs.understudylabs.com/open-source/task-model-format): The versioned manifest, files, integrity rules, and runtime contract for portable task models.
+
+## Related surfaces
+- [Understudy app](https://app.understudylabs.com): Dashboard for keys, projects, workloads, captures, routing, and billing.
+- [Understudy site](https://understudylabs.com): Company site, benchmarks, research notes, privacy, and terms.
+- [Agent tools repository](https://github.com/understudylabs/understudy-agent-tools): MIT-licensed local client and coding-agent skills.

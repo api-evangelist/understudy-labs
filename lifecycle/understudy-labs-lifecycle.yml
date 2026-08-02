@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.understudylabs.com/reference/control-plane
+versioning:
+  scheme: uri-path
+  current: v1
+  paths: [/v1, /admin/v1, /customer/v1]
+  docs: https://docs.understudylabs.com/reference/control-plane
+stability:
+  stage: private preview
+  policy: The control-plane surface is in private preview and evolves with the
+    product - additive change expected; breaking changes are announced to design
+    partners before they ship. Prefer the CLI or dashboard where they cover the
+    need.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No public deprecation policy or RFC 8594 Sunset/Deprecation header
+    support is documented. Desktop REST contract keeps legacy routes for one
+    release when versioned routes replace them.
+sla:
+  url: null
+  notes: No published SLA.
+status_page: null
+health:
+  liveness: GET https://api.understudylabs.com/healthz (public, no auth)
+  self_service: GET /admin/v1/orgs/:org_id/projects/:project_id/provider-health,
+    /status, and /workload-status - per-org routing and provider health
+    diagnostics via the control plane (not a public status page)
+releases:
+  desktop_and_agent_tools: https://github.com/understudylabs/understudy-agent-tools/releases
+  cadence: multiple Desktop releases per day as of 2026-07 (v0.3.39 on
+    2026-07-21); see changelog/understudy-labs-changelog.yml
+deprecated_operations: []

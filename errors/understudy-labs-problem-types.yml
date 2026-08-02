@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.understudylabs.com/reference/errors
+format: custom-envelope
+envelope:
+  description: Errors that originate at the gateway or control plane use one JSON
+    envelope with a closed set of types. Errors that originate upstream pass through
+    in the provider's own format (Anthropic or OpenAI error objects).
+  fields:
+    type: machine-readable error type from the closed set below
+    message: human-readable description
+    request_id: UUIDv7 matching the x-understudy-request-id response header; the
+      handle for support and capture lookup
+  example:
+    type: authentication_error
+    message: API key is missing or malformed.
+    request_id: 0190a7c2-7e11-7cc3-a312-9f1b22d40e88
+problems:
+- type: authentication_error
+  status: 401
+  title: Authentication error
+  detail: The sk_* key is missing, malformed, revoked, or unknown.
+- type: authorization_error
+  status: 403
+  title: Authorization error
+  detail: The key is valid but not allowed to touch the referenced resource -
+    usually a cross-organization reference.
+- type: invalid_request_error
+  status: 400 / 422
+  title: Invalid request
+  detail: The request can't be honored as expressed - malformed tags, an unknown
+    project or workload, an unknown catalog model, or a BYO key on a routed
+    workload. Control-plane bodies are schema-validated; violations name the
+    offending field. Unknown model_id values on route writes return 422.
+- type: rate_limit_error
+  status: 429
+  title: Rate limited
+  detail: Gateway-level rate limiting. Upstream provider 429s pass through in the
+    provider's own format instead.
+- type: internal_error
+  status: 500
+  title: Internal error
+  detail: Something failed inside the gateway. The request_id is the handle for
+    investigation.
+upstream_errors:
+  passthrough: On passthrough traffic upstream provider errors pass through -
+    status, body, and format - exactly as if the provider had been called directly.
+  routed_fallback: On routed traffic a failing upstream (5xx, 429, timeout)
+    triggers a fallback retry against the primary provider before an error is
+    surfaced; the response reports x-understudy-route fallback.
+  distinguishing: If the body parses as the Understudy envelope the gateway
+    produced it; if it parses as an Anthropic or OpenAI error object it came from
+    the provider. Both carry x-understudy-request-id.

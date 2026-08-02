@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Understudy Desktop Agent API
+  version: 1.0.0
+extends: openapi/understudy-labs-desktop-api-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      provider: understudy-labs
+      profiled: '2026-07-21'
+      source: https://github.com/understudylabs/understudy-agent-tools/blob/main/schemas/understudy.desktop_api.v2.openapi.json
+      notes: Loopback-only agent API; base URL and bearer token are discovered
+        from the owner-only desktop capability file, never hardcoded. Printed by
+        `understudy desktop contract` even when Desktop is not running.
+- target: $.info
+  update:
+    x-agentic-access-profile: agentic-access/understudy-labs-agentic-access.yml
+- target: $.info
+  update:
+    x-artifacts:
+      authentication: authentication/understudy-labs-authentication.yml
+      conventions: conventions/understudy-labs-conventions.yml
+      errors: errors/understudy-labs-problem-types.yml
+      data-model: data-model/understudy-labs-data-model.yml

@@ -1,0 +1,54 @@
+generated: '2026-07-21'
+method: searched
+source: live probes of understudylabs.com hosts (2026-07-21)
+hosts:
+- host: https://api.understudylabs.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: understudy-labs-oauth-authorization-server.json
+    notes: RFC 9728-style protected-resource metadata (resource,
+      authorization_servers, bearer_methods_supported) plus a WorkOS agent_auth
+      extension - agent registration at /agent/auth, claim and revoke URIs,
+      verified_email identity assertions, api_key credentials.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://understudylabs.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    file: ../llms/understudy-labs-llms.txt
+- host: https://docs.understudylabs.com
+  documents:
+  - path: /llms.txt
+    status: 200
+    file: ../llms/understudy-labs-docs-llms.txt
+  - path: /llms-full.txt
+    status: 200
+    notes: full docs export; not mirrored (gitignored pattern *-llms-full.txt)
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://app.understudylabs.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /llms.txt
+    status: 404

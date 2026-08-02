@@ -1,0 +1,227 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/understudylabs/understudy-agent-tools/tree/main/skills
+notes: Provider-published Agent Skill library (MIT). 34 progressive-disclosure playbooks for
+  coding agents (Claude Code, Cursor, Codex, OpenCode, Hermes, Devin) shipped as the product
+  itself in understudy-agent-tools. Three representative skills are mirrored verbatim in this
+  directory; the full library lives in the repo.
+mirrored:
+- file: understudy-labs-understudy-orchestrator.md
+  skill: understudy
+- file: understudy-labs-use-understudy-gateway.md
+  skill: use-understudy-gateway
+- file: understudy-labs-check-routing-health.md
+  skill: check-routing-health
+skills:
+- name: capture-evidence
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/capture-evidence/SKILL.md
+  description: Use when a developer wants to build an eval from their real LLM app before changing
+    anything — "measure how my app is doing today", "build an eval from my workload", "we have
+    no baseline", "is my current model actually good". Turns the workload into auditable local
+    artifacts (harness, metric, frozen splits, baseline); has a public-benchmark on-ramp when
+    no traces exist.
+- name: check-routing-health
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/check-routing-health/SKILL.md
+  description: Use when a developer asks "is Understudy causing my errors", "which workloads
+    are routed", "is my routing config actually taking effect", "is my provider healthy", "are
+    there 500s on staging", "what's our error rate", "where is my gateway spend going", or wants
+    self-service diagnostics without asking the team. Reads the hosted reporting endpoints with
+    the developer's sk_* key.
+- name: compare-model-sweep
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/compare-model-sweep/SKILL.md
+  description: Use when a developer wants to compare candidate models — any mix of local, gateway,
+    or frontier — on the same eval and see quality, latency, cost, and reliability side by side.
+    "Which model should I use", "sweep these models on my benchmark", "compare Gemma vs the
+    frontier on my eval". To stand up and serve a local candidate first, use run-local-model-lab.
+- name: compare-trajectories
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/compare-trajectories/SKILL.md
+  description: Use when you need to know HOW two model runs differ behaviorally on the same
+    tasks, not just THAT one scores higher — per-task trajectory diffing that classifies the
+    gap as persistence/recovery, knowledge, or format/parsing. "why does the bigger model pass
+    these", "is this gap RL-shaped", "diff these two trajectory runs", "where do the trajectories
+    diverge", "what would distillation buy me". The behavioral complement to compare-model-sweep.
+- name: curate-trajectories
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/curate-trajectories/SKILL.md
+  description: Use to turn loose per-task trajectory JSONs (a Lilac export or local rollout
+    corpus) into a queryable, provenance-tracked, contamination-safe dataset that hard-blocks
+    any selection leaking frozen dev/holdout into a train/RL/distill pool. "curate my trajectories",
+    "which rollouts are train-safe", "exclude the holdout rows before RL", "is this distill
+    pool contaminated", "make a hash-stamped selection", "stop hand-filtering trajectories in
+    bash".
+- name: design-simulated-environment
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/design-simulated-environment/SKILL.md
+  description: Use to build a simulated, seeded environment (AutomationBench / verifiers style)
+    so any model can run a captured agentic workload end-to-end and be scored on final state
+    — "simulate this workload's tools", "build a validator for these traces", "let a small model
+    attempt the whole task", "score recall/precision against gold", or any handoff from understand-workload
+    toward whole-case model comparison.
+- name: distill-classifier
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/distill-classifier/SKILL.md
+  description: Use when a developer wants to replace an expensive frontier model on a classification
+    workload (binary, multi-class, multi-label, or structured extraction) with a fine-tuned
+    open-weight student — "distill this classifier", "can a small model do this tagging job",
+    "the frontier labels these for $X, make it cheaper", "consensus-label my data". Multi-teacher
+    majority-vote labeling, failure-directed SFT data, and a four-way promote/shadow/collect/stop
+    verdict.
+- name: ingest-traces
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/ingest-traces/SKILL.md
+  description: Use when a developer already has production LLM traces — a bucket of captures,
+    provider log exports, or gateway capture files — and wants them turned into local, redacted
+    eval sets, or profiled for cost first. "Ingest my traces", "turn these logs into an eval
+    set", "where is my LLM spend going", "which calls could a local model take over".
+- name: inspect-billing-sources
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/inspect-billing-sources/SKILL.md
+  description: ''
+- name: install-agent-adapter
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/install-agent-adapter/SKILL.md
+  description: Use when a developer wants to install, enable, update, reinstall, remove, or
+    verify Understudy in a coding agent - "install Understudy", "add the Understudy skills",
+    "make Claude/Cursor/Codex/OpenCode/Hermes/Devin see the skills". Chooses the requested agent
+    platform and routes to the local install, reload, onboarding, and uninstall steps.
+- name: install-codex-plugin
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/install-codex-plugin/SKILL.md
+  description: Compatibility shim for Codex installs. Use when a developer asks to install,
+    update, enable, reinstall, remove, or verify the Understudy Codex plugin - "install Understudy
+    in Codex", "add the Codex plugin", "make Codex see the skills". Route to install-agent-adapter
+    with platform codex.
+- name: install-cursor-plugin
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/install-cursor-plugin/SKILL.md
+  description: Compatibility shim for Cursor installs. Use when a developer asks to install,
+    update, enable, reinstall, remove, or verify the Understudy Cursor plugin - "install Understudy
+    in Cursor", "add the Cursor plugin", "make Cursor see the skills". Route to install-agent-adapter
+    with platform cursor.
+- name: install-opencode-plugin
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/install-opencode-plugin/SKILL.md
+  description: Compatibility shim for OpenCode installs. Use when a developer asks to install,
+    update, enable, reinstall, remove, or verify Understudy in OpenCode - "install Understudy
+    in OpenCode", "add the OpenCode skills", "make OpenCode see the skills". Route to install-agent-adapter
+    with platform opencode.
+- name: install-plugin
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/install-plugin/SKILL.md
+  description: Compatibility shim for Claude Code installs. Use when a developer asks to install,
+    update, enable, reinstall, remove, or verify the Understudy Claude Code plugin - "install
+    Understudy in Claude", "add the Understudy skills", "why can't Claude see the skill". Route
+    to install-agent-adapter with platform claude-code.
+- name: ladder
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/ladder/SKILL.md
+  description: Use to give a developer an immediate local-vs-frontier model comparison before
+    they have their own traces — "what can a local model do", "is a small model good enough",
+    "compare a local model to a frontier model", "the onboarding climb". For comparing many
+    models on a user's own eval, use compare-model-sweep; to serve a local model, use run-local-model-lab.
+- name: local-distillation-lab
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/local-distillation-lab/SKILL.md
+  description: Use when a developer wants to fine-tune or distill a local open model on their
+    Mac and see which training method actually moves a captured workload — "fine-tune a local
+    model", "distill the frontier into a small model", "would training close the gap". Compares
+    baseline, rejection-sampled fine-tuning, distillation, and surprisal-gated pedagogical arms;
+    includes learning from privileged answers/feedback.
+- name: lower-anthropic-bill
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/lower-anthropic-bill/SKILL.md
+  description: ''
+- name: manage-local-models
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/manage-local-models/SKILL.md
+  description: Use to acquire, cache, organize, and explain local open-weight models — "download
+    a model", "what models do I have", "where did the weights go", "free up model disk", "which
+    Gemma/Nemotron should I pull", "how do open models work". Covers where weights come from
+    and live, formats/quantization, gated weights and HF tokens, disk budgeting, start-small-and-cache,
+    and the local→cloud graduation path. American families (Gemma 4, Nemotron 3). To score a
+    local model on a workload, use run-local-model-lab.
+- name: onboard
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/onboard/SKILL.md
+  description: Use as the engaging first-run experience right after the Understudy plugin is
+    installed, or whenever a developer says "get started", "set me up", "I'm new to this", "onboard
+    me", or asks what Understudy is and where to begin. Backgrounds a small open-model download
+    while it profiles the machine, detects ML tooling, interviews the user to gauge experience
+    and goals, and writes a durable ~/.understudy/profile.json so every later skill can meet
+    the user where they are. Hands off to the understudy orchestrator.
+- name: optimize-agentic-workload
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/optimize-agentic-workload/SKILL.md
+  description: Use when a developer's agent — a multi-turn tool-calling loop — should get cheaper,
+    faster, or better without retraining. "My agent is too slow", "this workflow costs too much",
+    "test a cheaper model in my tool-calling loop", "A/B the policy model". Covers read-only
+    search loops and state-mutating API workflows alike.
+- name: optimize-local-model-compression
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/optimize-local-model-compression/SKILL.md
+  description: Use when a developer needs to compress a local model for tool-calling workloads
+    — "which quantization should I use", "why does my model emit broken JSON", "how do I get
+    better tool-call fidelity from a 4-bit model", "OptiQ vs QAT vs naive", "the model stopped
+    calling tools after quantization". Covers layer-aware sensitivity-driven compression, QAT
+    group-size matching, and outcome-optimized calibration for structured output.
+- name: optimize-workload
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/optimize-workload/SKILL.md
+  description: Use when a developer has a measured eval and wants the prompt or route improved
+    without retraining — "optimize my prompt against my eval", "close the quality gap with the
+    cheaper model", "squeeze cost without losing quality". Keeps holdout sealed, runs GEPA (automatic
+    prompt evolution) on train/dev only, and requires a claim packet before any savings statement.
+- name: plan-hosted-run
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/plan-hosted-run/SKILL.md
+  description: Use when a developer wants to run a hosted job — a fine-tune, an RL (reinforcement-learning)
+    run, batch inference, or large-scale trajectory generation — and asks where, how long, and
+    how much. "What would it cost to fine-tune this", "which provider should I use for this
+    RL run", "is this cheaper locally or in the cloud". Estimates and routes; never spends.
+- name: prepare-verifier-handoff
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/prepare-verifier-handoff/SKILL.md
+  description: Use when a workload must learn multi-step behavior through hosted reinforcement-learning
+    (RL) training that local optimization cannot deliver, and needs to become partner-ready.
+    "My agent needs RL", "can we train this policy", "package my environment for a training
+    partner", "is this workload ready for RL". Decides first, then authors the trainable environment,
+    then packages it — never trains here.
+- name: product-knowledge
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/product-knowledge/SKILL.md
+  description: Use when a user asks what Understudy is, how Understudy Desktop works, how local
+    model serving, Fusion sidekick, evals, model candidate results, rollout labs, Product Knowledge,
+    or Understudy product capabilities should be explained to developers, customers, or agents.
+- name: ramp-and-verify
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/ramp-and-verify/SKILL.md
+  description: Use after a route decision exists and a candidate model must take live traffic
+    safely — "ramp this route", "move 25% of traffic to the new model", "did the route change
+    regress anything", "roll this back", "prove the savings are real". Pre-ramp stability gates,
+    a staged traffic ladder through the Understudy gateway dial, routed-vs-passthrough verification
+    from captures at each step, and explicit rollback triggers.
+- name: recursive-language-model
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/recursive-language-model/SKILL.md
+  description: Use when a developer wants a small or local model to take over an agentic task
+    a frontier model one-shots — "can a small model do this whole case", "the prompt is too
+    big for the small model", "hill-climb the local model on this task". Decomposes the task
+    into bounded, flat-context steps behind the same call contract; includes the training path.
+- name: run-local-model-lab
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/run-local-model-lab/SKILL.md
+  description: Use when a developer wants to stand up and run a local model on Apple Silicon
+    against their real workload — "run this model on my Mac", "is a local model good enough
+    before I pay for hosted". Covers the MLX serving rig, scored real-workload evals, and the
+    route decision. For comparing many candidate models on one eval, use compare-model-sweep.
+- name: share-savings
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/share-savings/SKILL.md
+  description: Use when a developer wants to share how much Understudy saved them, submit an
+    anonymous "lower my Anthropic bill" result, prepare a leaderboard receipt, or send savings
+    metrics back to Understudy. Builds a metrics-only payload from value-report or claim artifacts,
+    redacts identity by construction, and posts only after explicit approval.
+- name: simulate-before-launch
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/simulate-before-launch/SKILL.md
+  description: ''
+- name: understand-workload
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/understand-workload/SKILL.md
+  description: Use when a developer wants a captured prompt, trace, or dataset explained before
+    changing anything — "explain this prompt", "what is this trace actually doing", "decompose
+    this workload", "help me understand this dataset before testing models". Builds a shared
+    mental model (purpose, inputs, tools, success criteria) with the user through Q&A.
+- name: understudy
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/understudy/SKILL.md
+  description: Use when a developer asks a coding agent to improve an LLM app or agent — "make
+    my LLM app cheaper/faster", "raise quality or reliability", "compare models", "pick a model
+    or route". Orchestrates trace → evaluate → optimize (GEPA, automatic prompt evolution) →
+    compare → deploy via worker skills. Not for generic coding unless LLM behavior, cost, traces,
+    evals, or routing is involved.
+- name: use-understudy-gateway
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/use-understudy-gateway/SKILL.md
+  description: Use when a developer wants to run inference or evals through the Understudy gateway
+    — "route my app through Understudy", "set up my account and keys", "A/B a model on part
+    of my traffic" — or must choose between local provider keys and the gateway route ("should
+    I use my OpenAI key or the gateway"). Handles login, projects/keys, model routing, and runs.
+- name: watch-logs
+  source: https://github.com/understudylabs/understudy-agent-tools/blob/main/skills/watch-logs/SKILL.md
+  description: Use when a developer wants an always-on ops watcher over logs, command output,
+    or endpoints — "every five minutes look at my logs and tell me what's wrong", "watch this
+    log file and flag anomalies", "review my events on a schedule without burning tokens". Deterministic
+    hash-gated triggers fire a cheap model review only on change, and every review is captured
+    as an eval row for a future fine-tune.

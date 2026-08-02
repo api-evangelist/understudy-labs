@@ -1,0 +1,96 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/understudy-labs-desktop-api-openapi.json + control-plane reference
+  docs (https://docs.understudylabs.com/reference/control-plane)
+id_prefixes:
+- prefix: org_
+  entity: organization
+- prefix: proj_
+  entity: project
+- prefix: usp_
+  entity: workload
+- prefix: api_key_
+  entity: api_key
+- prefix: evc_
+  entity: eval_cohort
+- prefix: eve_
+  entity: eval_export
+entities:
+- name: organization
+  domain: control-plane
+  notes: Root tenant; every control-plane route nests under /orgs/:org_id and
+    every sk_* key belongs to one org.
+- name: api_key
+  domain: control-plane
+  notes: sk_live_* credential; metadata carries id, name, obfuscated_value,
+    created_at, last_used_at. Plaintext shown once at creation.
+- name: project
+  domain: control-plane
+  notes: Addressed by immutable org-unique slug (x-understudy-project header);
+    name is display-only; deletion is soft and frees the slug. Default project
+    is rehearsal.
+- name: workload
+  domain: control-plane
+  notes: Named per-project traffic bucket (x-understudy-workload header; default
+    main). Carries capture_enabled, capture_sample_rate, route_model_id,
+    route_traffic_pct, is_default. Exactly one default per project.
+- name: model (catalog)
+  domain: control-plane
+  notes: Public catalog id (e.g. glm-5.1) with display_name and active flag; the
+    same ids GET /v1/models returns. Provider deployments never exposed.
+- name: capture
+  domain: control-plane
+  notes: Request/response evidence envelope named by UUIDv7 request_id; storage
+    key encodes org/project/key/date partition. Attributed to the sending
+    api_key.
+- name: eval_cohort
+  domain: control-plane
+  notes: Immutable frozen set of 1-500 exact capture references with
+    server-computed cohort SHA-256; exports are short-lived and audited.
+- name: eval_spec / eval_run
+  domain: control-plane
+  notes: Immutable eval definitions and compact run summaries tied to a workload
+    and cohort.
+relationships:
+- from: organization
+  to: api_key
+  kind: has_many
+- from: organization
+  to: project
+  kind: has_many
+- from: project
+  to: workload
+  kind: has_many
+  via: project_id
+- from: workload
+  to: model (catalog)
+  kind: belongs_to
+  via: route_model_id
+- from: project
+  to: capture
+  kind: has_many
+- from: capture
+  to: workload
+  kind: belongs_to
+- from: capture
+  to: api_key
+  kind: belongs_to
+  via: workos_api_key_id
+- from: workload
+  to: eval_cohort
+  kind: has_many
+- from: eval_cohort
+  to: capture
+  kind: has_many
+  via: capture references (request_id + content_sha256)
+- from: eval_run
+  to: eval_cohort
+  kind: belongs_to
+desktop_entities:
+- name: model / download / residency slot / conversation run / supervision correction
+  domain: desktop (loopback API)
+  notes: 23 schemas in the OpenAPI 3.1 contract - model inventory and catalog,
+    download jobs (download_id), residency slots (slot_id) that hold warmed
+    models, conversation sessions/turns/runs (session_id, run_id) emitting
+    ConversationRuntime events, and supervisor feedback/corrections keyed by
+    run markers.

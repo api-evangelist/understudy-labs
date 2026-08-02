@@ -1,0 +1,32 @@
+{
+  "provider": "understudy-labs",
+  "sources": [
+    "understudy-labs-capabilities-api-openapi.yml",
+    "understudy-labs-conversations-api-openapi.yml",
+    "understudy-labs-downloads-api-openapi.yml",
+    "understudy-labs-feedback-api-openapi.yml",
+    "understudy-labs-metrics-api-openapi.yml",
+    "understudy-labs-models-api-openapi.yml",
+    "understudy-labs-residency-api-openapi.yml",
+    "understudy-labs-runs-api-openapi.yml",
+    "understudy-labs-status-api-openapi.yml",
+    "understudy-labs-supervision-api-openapi.yml"
+  ],
+  "outputs": [
+    "understudy-labs-capabilities-api-openapi.yml",
+    "understudy-labs-conversations-api-openapi.yml",
+    "understudy-labs-downloads-api-openapi.yml",
+    "understudy-labs-feedback-api-openapi.yml",
+    "understudy-labs-metrics-api-openapi.yml",
+    "understudy-labs-models-api-openapi.yml",
+    "understudy-labs-residency-api-openapi.yml",
+    "understudy-labs-runs-api-openapi.yml",
+    "understudy-labs-status-api-openapi.yml",
+    "understudy-labs-supervision-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

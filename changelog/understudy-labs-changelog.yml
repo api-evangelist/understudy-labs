@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/understudylabs/understudy-agent-tools/releases
+scheme: semver per component - Understudy Desktop tags (v0.3.x) on GitHub
+  releases; the agent-tools CLI versions independently in package.json (0.6.36).
+  No dated product changelog page is published on understudylabs.com or the
+  docs site (both /changelog paths 404, probed 2026-07-21); GitHub releases are
+  the public release record.
+current:
+  desktop: 0.3.39
+  agent_tools_cli: 0.6.36
+  desktop_api_contract: 2.2.0 (OpenAPI 3.1)
+entries:
+- version: Understudy Desktop v0.3.39
+  date: '2026-07-21'
+- version: Understudy Desktop v0.3.38
+  date: '2026-07-21'
+- version: Understudy Desktop v0.3.37
+  date: '2026-07-21'
+- version: Understudy Desktop v0.3.36
+  date: '2026-07-21'
+- version: Understudy Desktop v0.3.35
+  date: '2026-07-21'
+- version: Understudy Desktop v0.3.34
+  date: '2026-07-20'
+- version: Understudy Desktop v0.3.33
+  date: '2026-07-20'
+- version: Understudy Desktop v0.3.32
+  date: '2026-07-20'
+- version: Understudy Desktop v0.3.31
+  date: '2026-07-20'
+- version: Understudy Desktop v0.3.30
+  date: '2026-07-20'
+notes: Release cadence is multiple Desktop builds per day (YC S26 company in
+  private preview). Entry titles from the releases Atom feed; per-release
+  highlight notes are not mirrored here - the live releases page is the source
+  of truth.

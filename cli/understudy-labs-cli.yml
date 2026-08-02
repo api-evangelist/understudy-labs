@@ -1,0 +1,71 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.understudylabs.com/open-source/cli
+name: understudy
+description: The scriptable face of the control plane - a login flow, health
+  checks, and shortcuts for workloads, routes, captures, and gateway probes.
+  Thin TypeScript by design; workflow judgment lives in the skills library.
+  MIT-licensed in understudy-agent-tools.
+repository: https://github.com/understudylabs/understudy-agent-tools
+license: MIT
+install:
+- method: installer-script
+  command: curl -fsSL https://raw.githubusercontent.com/UnderstudyLabs/understudy-agent-tools/main/install.sh | bash
+  notes: Resumable (--resume), non-interactive (--yes); installs the Claude Code
+    plugin when claude is on PATH.
+- method: source
+  command: git clone https://github.com/understudylabs/understudy-agent-tools && npm install && npm run build
+commands:
+  orientation:
+  - command: understudy spine
+    does: Prints the public capture -> evaluate -> optimize workflow and points
+      agents at the orchestrator skill.
+  - command: understudy skills --list / --search <term>
+    does: Browse the installed skill library.
+  - command: understudy doctor [--hosted]
+    does: Environment health check; --hosted also verifies auth and hosted
+      gateway reachability.
+  authentication:
+  - command: understudy login --email you@company.com
+    does: Email-code sign-in against the dashboard identity; stores the
+      credential locally.
+  resources:
+  - command: understudy workloads list
+    control_plane: GET .../workloads
+  - command: understudy workloads create <name> --capture
+    control_plane: POST .../workloads with capture_enabled true
+  - command: understudy routes set <workload> --project <slug> --model-id <id> --traffic-pct <n>
+    control_plane: PUT .../workloads/:id/route
+  - command: understudy routes show <workload> --project <slug>
+    control_plane: read current route state
+  - command: understudy routes clear <workload> --project <slug>
+    control_plane: PUT .../route with model_id null (back to passthrough)
+  - command: understudy captures list --project <slug> --workload <name>
+    control_plane: GET .../captures
+  - command: understudy evals create --project <slug> --workload <name> --last 14d --name <name>
+    does: Review, freeze, and download a recent workload-scoped eval set.
+  - command: understudy evals catalog / cohort create / cohort export
+    control_plane: eval-capture-catalog, eval-cohorts, eval-cohorts/:id/export -
+      SHA-256-verified local materialization with URL-free manifests
+  - command: understudy gateway probe --provider <p> --project <slug> --workload <name>
+    does: Sends a real smoke request through the proxy and reports the
+      legibility headers.
+  desktop:
+  - command: understudy desktop contract
+    does: Prints the packaged OpenAPI 3.1 Desktop contract even when Desktop is
+      not running.
+  - command: understudy desktop download / slot / chat / run / supervision / tool-proof ...
+    does: Model downloads, residency slots, chat runs, supervisor feedback, and
+      local-only supervision exports against the loopback Desktop Agent API.
+  mcp:
+  - command: understudy explore mcp
+    does: Runs the stdio MCP server (see mcp/understudy-labs-mcp.yml).
+key_flows:
+- name: first hosted journey
+  commands: login -> doctor --hosted -> workloads list -> workloads create
+    classify --capture -> gateway probe -> captures list -> routes set (10%) ->
+    routes show -> routes clear
+environment:
+  UNDERSTUDY_API_KEY: authenticates raw control-plane calls in scripted contexts
+  UNDERSTUDY_TELEMETRY: set 0 to disable post-auth product telemetry
+    (documented in docs/telemetry.md in the repo)

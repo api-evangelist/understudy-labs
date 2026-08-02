@@ -1,23 +1,268 @@
 aid: understudy-labs
 name: Understudy Labs
-description: Understudy Labs is a company surfaced as a portfolio company of y-combinator and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: Understudy Labs (YC S26) is an LLM gateway and model-optimization platform that
+  helps teams move repeated production LLM workloads onto open-weight models they own. The Understudy
+  gateway is a drop-in replacement for the Anthropic and OpenAI API endpoints that captures
+  request/response traces by project and workload, routes measured slices of traffic to managed
+  open models, and falls back safely. A REST control plane manages keys, projects, workloads,
+  routing, captures, evaluation cohorts, and reporting, while the MIT-licensed understudy-agent-tools
+  repo ships a CLI, a coding-agent skill library, a local MCP server, and Understudy Desktop
+  with a documented loopback OpenAPI 3.1 contract.
 url: https://raw.githubusercontent.com/api-evangelist/understudy-labs/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://bookface-images.s3.amazonaws.com/small_logos/034b1bab6d92bd99439aee47bf2312630046798c.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - y-combinator
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profile
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
-- Company
-apis: []
+- Artificial Intelligence
+- LLM Gateway
+- Machine Learning
+- Open Source
+- Model Routing
+- Evaluations
+- Fine-Tuning
+- AI Infrastructure
+- Developer Tools
+apis:
+- aid: understudy-labs:understudy-gateway-api
+  name: Understudy Gateway API
+  description: >-
+    Anthropic- and OpenAI-compatible LLM proxy at api.understudylabs.com. POST /v1/messages (Anthropic
+    Messages), POST /v1/chat/completions (OpenAI Chat Completions), POST /v1/messages/count_tokens, GET
+    /v1/models (public managed-model catalog), and GET /healthz. Supports bring-your-own-key passthrough
+    and managed catalog models, capture of request/response evidence, canary routing with fallback, and
+    x-understudy-* scoping, tagging, and legibility headers.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - LLM Gateway
+  - Proxy
+  - Model Routing
+  properties:
+  - type: Documentation
+    url: https://docs.understudylabs.com/reference/proxy-endpoints
+  - type: APIReference
+    url: https://docs.understudylabs.com/reference/request-headers
+- aid: understudy-labs:understudy-control-plane-api
+  name: Understudy Control Plane API
+  description: >-
+    REST surface behind the dashboard and CLI, served from the gateway host under /admin/v1 and /customer/v1,
+    org-scoped and authenticated with sk_* bearer keys. Covers API key mint/list/revoke, project CRUD
+    by slug, workload CRUD, the model catalog, route writes with traffic percentages, capture listing
+    and envelope fetch, evaluation capture catalogs with frozen cohorts and audited short-lived exports,
+    and reporting endpoints for routing status, provider health, workload status, and usage summaries.
+  humanURL: https://docs.understudylabs.com/reference/control-plane
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Control Plane
+  - API Keys
+  - Routing
+  - Evaluations
+  properties:
+  - type: Documentation
+    url: https://docs.understudylabs.com/reference/control-plane
+  - type: APIReference
+    url: https://docs.understudylabs.com/reference/control-plane/keys
+- aid: understudy-labs:understudy-labs-capabilities-api
+  name: Understudy Labs Capabilities API
+  description: The Capabilities API from Understudy Labs — 1 operation(s) for capabilities.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Capabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-capabilities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-conversations-api
+  name: Understudy Labs Conversations API
+  description: The Conversations API from Understudy Labs — 1 operation(s) for conversations.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-conversations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-downloads-api
+  name: Understudy Labs Downloads API
+  description: The Downloads API from Understudy Labs — 3 operation(s) for downloads.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Downloads
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-downloads-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-feedback-api
+  name: Understudy Labs Feedback API
+  description: The Feedback API from Understudy Labs — 1 operation(s) for feedback.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-feedback-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-metrics-api
+  name: Understudy Labs Metrics API
+  description: The Metrics API from Understudy Labs — 1 operation(s) for metrics.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-models-api
+  name: Understudy Labs Models API
+  description: The Models API from Understudy Labs — 2 operation(s) for models.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-residency-api
+  name: Understudy Labs Residency API
+  description: The Residency API from Understudy Labs — 6 operation(s) for residency.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Residency
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-residency-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-runs-api
+  name: Understudy Labs Runs API
+  description: The Runs API from Understudy Labs — 2 operation(s) for runs.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-status-api
+  name: Understudy Labs Status API
+  description: The Status API from Understudy Labs — 1 operation(s) for status.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-status-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+- aid: understudy-labs:understudy-labs-supervision-api
+  name: Understudy Labs Supervision API
+  description: The Supervision API from Understudy Labs — 1 operation(s) for supervision.
+  humanURL: https://docs.understudylabs.com/reference/proxy-endpoints
+  baseURL: https://api.understudylabs.com
+  tags:
+  - Supervision
+  properties:
+  - type: OpenAPI
+    url: openapi/understudy-labs-supervision-api-openapi.yml
+  - type: Documentation
+    url: https://docs.understudylabs.com/open-source/desktop-task-models
+common:
+- type: AgenticAccess
+  url: agentic-access/understudy-labs-agentic-access.yml
+- type: Authentication
+  url: authentication/understudy-labs-authentication.yml
+- type: DomainSecurity
+  url: security/understudy-labs-domain-security.yml
+- type: Website
+  url: https://understudylabs.com
+- type: DeveloperPortal
+  url: https://docs.understudylabs.com
+- type: Documentation
+  url: https://docs.understudylabs.com
+- type: APIReference
+  url: https://docs.understudylabs.com/reference/proxy-endpoints
+- type: GettingStarted
+  url: https://docs.understudylabs.com/quickstart
+- type: Login
+  url: https://app.understudylabs.com
+- type: Support
+  url: https://understudylabs.com/contact
+- type: Blog
+  url: https://understudylabs.com/research
+- type: GitHubOrganization
+  url: https://github.com/understudylabs
+- type: TermsOfService
+  url: https://understudylabs.com/terms
+- type: PrivacyPolicy
+  url: https://understudylabs.com/privacy
+- type: LLMsTxt
+  url: llms/understudy-labs-llms.txt
+- type: WellKnown
+  url: well-known/understudy-labs-well-known.yml
+- type: MCPServer
+  url: mcp/understudy-labs-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: ErrorCatalog
+  url: errors/understudy-labs-problem-types.yml
+- type: Conventions
+  url: conventions/understudy-labs-conventions.yml
+- type: Lifecycle
+  url: lifecycle/understudy-labs-lifecycle.yml
+- type: Conformance
+  url: conformance/understudy-labs-conformance.yml
+- type: Packages
+  url: packages/understudy-labs-packages.yml
+- type: CLI
+  url: cli/understudy-labs-cli.yml
+- type: ChangeLog
+  url: changelog/understudy-labs-changelog.yml
+- type: DataModel
+  url: data-model/understudy-labs-data-model.yml
+- type: Arazzo
+  url: arazzo/understudy-labs-download-warm-and-chat.yml
+  name: Download, warm, and chat with a local model on Understudy Desktop
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v1

@@ -1,0 +1,67 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.understudylabs.com/authentication
+docs: https://docs.understudylabs.com/authentication
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  notes: One credential - the Understudy sk_* key - authenticates the gateway proxy,
+    the control-plane API, and the agent CLI. Header placement depends on the API
+    shape being spoken. Keys are minted/revoked on the dashboard; plaintext is
+    shown exactly once at creation. Keys are org-scoped; captures are attributed
+    to the key id. No OAuth scopes surface is published.
+schemes:
+- name: understudyKeyAnthropicStyle
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: Understudy sk_live_* key sent Anthropic-style on POST /v1/messages.
+  sources:
+  - https://docs.understudylabs.com/authentication
+- name: understudyKeyBearer
+  type: http
+  scheme: bearer
+  description: Understudy sk_live_* key as Authorization Bearer - OpenAI-style; works
+    on /v1/chat/completions, /v1/models, and every /admin/v1 + /customer/v1
+    control-plane route.
+  sources:
+  - https://docs.understudylabs.com/authentication
+  - https://docs.understudylabs.com/reference/control-plane
+- name: upstreamProviderKey
+  type: apiKey
+  in: header
+  parameter: x-understudy-upstream-key
+  description: Bring-your-own Anthropic or OpenAI provider key, forwarded upstream
+    for that single request and never stored. Never the credential Understudy
+    validates; rejected on routed workloads.
+  sources:
+  - https://docs.understudylabs.com/reference/request-headers
+- name: desktopBearer
+  type: http
+  scheme: bearer
+  description: Ephemeral loopback token for the Understudy Desktop Agent API, read
+    from the owner-only desktop capability file (~/.understudy/desktop-api.json,
+    mode 0600). Agents should use the Understudy CLI or MCP adapter instead of
+    handling this token directly.
+  sources:
+  - openapi/understudy-labs-desktop-api-openapi.json
+- name: agentAuthWorkOS
+  type: http
+  scheme: bearer
+  description: Agent-native registration flow advertised in the RFC 9728-style
+    protected-resource metadata at /.well-known/oauth-authorization-server -
+    register at /agent/auth, claim at /agent/auth/claim, revoke at
+    /agent/auth/revoke; identity via verified_email assertion, credential type
+    api_key (WorkOS agent-auth skill).
+  sources:
+  - well-known/understudy-labs-oauth-authorization-server.json
+failure_modes:
+- status: 401
+  type: authentication_error
+  when: sk_* key missing, malformed, revoked, or unknown
+- status: 403
+  type: authorization_error
+  when: valid key used against another organization's resources

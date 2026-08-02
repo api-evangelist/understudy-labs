@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: searched
+notes: No first-party SDK libraries are published - the gateway is deliberately
+  SDK-transparent (use the official Anthropic/OpenAI SDKs with baseURL
+  https://api.understudylabs.com). First-party distribution is the agent-tools
+  CLI (installer script / source; the @understudylabs/understudy-agent-tools npm
+  name appears in package.json but is not published to the npm registry as of
+  2026-07-21), the Desktop app via GitHub releases, and a reserved PyPI
+  namespace anchor.
+packages:
+- language: typescript
+  registry: github
+  name: understudy-agent-tools
+  url: https://github.com/understudylabs/understudy-agent-tools
+  install: curl -fsSL https://raw.githubusercontent.com/UnderstudyLabs/understudy-agent-tools/main/install.sh | bash
+  version: 0.6.36
+  license: MIT
+  official: true
+  kind: cli-and-skill-library
+- language: binary
+  registry: github-releases
+  name: Understudy Desktop
+  url: https://github.com/understudylabs/understudy-agent-tools/releases
+  install: 'download: Understudy_<version>_aarch64.dmg (macOS Apple Silicon)'
+  version: 0.3.39
+  official: true
+  kind: desktop-app
+- language: python
+  registry: pypi
+  name: understudylabs
+  url: https://pypi.org/project/understudylabs/
+  install: pip install understudylabs
+  version: 0.0.1
+  official: true
+  kind: reserved-namespace-anchor
+  notes: Reserved namespace anchor package for Understudy Labs - not a working SDK.
+third_party_namesquat_watch:
+- registry: npm
+  name: understudy
+  official: false
+  notes: Unrelated 2010s action-interceptor package by bmeck.
+- registry: pypi
+  name: understudy
+  official: false
+  notes: Unrelated gojiplus simulation/trace-eval package.
