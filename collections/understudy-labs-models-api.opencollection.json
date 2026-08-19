@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Understudy Desktop Agent Capabilities Models API",
+    "version": "2.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List local model snapshots available to Desktop",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://127.0.0.1:{port}/v1/models"
+          },
+          "docs": "List local model snapshots available to Desktop"
+        },
+        {
+          "info": {
+            "name": "List the certified model snapshot catalog with local cache state",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://127.0.0.1:{port}/v1/models/catalog"
+          },
+          "docs": "List the certified model snapshot catalog with local cache state"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

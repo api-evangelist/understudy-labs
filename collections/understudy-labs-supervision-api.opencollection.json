@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Understudy Desktop Agent Capabilities Supervision API",
+    "version": "2.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Supervision",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Project canonical local journals into correction pairs and attributed metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://127.0.0.1:{port}/v1/supervision/corrections",
+            "params": [
+              {
+                "name": "reviewed_only",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Project canonical local journals into correction pairs and attributed metrics"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

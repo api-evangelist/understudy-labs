@@ -7,17 +7,14 @@ server:
   version: 1.0.0
   transport: stdio
   command: understudy explore mcp
-  distribution: MIT-licensed source in understudy-agent-tools (installer script
-    or npm run build from a clone)
+  distribution: MIT-licensed source in understudy-agent-tools (installer script or npm run build from
+    a clone)
   hosted: false
-  notes: Local stdio MCP server for coding agents. Reads local Moraine ClickHouse
-    session stores (read-only, capped) and the Understudy scan stores under
-    ~/.understudy/explore/. Replaces Moraine's MCP with the same tool
-    names/shapes plus two Understudy-native extras. Separately, MCP is an
-    adapter onto the Understudy Desktop ConversationRuntime for agents that
-    prefer tool calls over the CLI (same runtime and run_id as the desktop UI,
-    REST API, and CLI). No hosted/remote MCP server is published as of
-    2026-07-21.
+  notes: Local stdio MCP server for coding agents. Reads local Moraine ClickHouse session stores (read-only,
+    capped) and the Understudy scan stores under ~/.understudy/explore/. Replaces Moraine's MCP with the
+    same tool names/shapes plus two Understudy-native extras. Separately, MCP is an adapter onto the Understudy
+    Desktop ConversationRuntime for agents that prefer tool calls over the CLI (same runtime and run_id
+    as the desktop UI, REST API, and CLI). No hosted/remote MCP server is published as of 2026-07-21.
 tools:
 - name: search_sessions
   description: Search captured coding-agent sessions (Moraine-compatible).
@@ -31,3 +28,9 @@ tools:
   description: Understudy-native - tasks discovered by the explore scan stores.
 - name: explore_status
   description: Understudy-native - status of the local explore scan stores.
+deployment:
+  mode: local-stdio
+  verified: searched
+  tools: 6
+  checked: '2026-08-12'
+  source: catalog MCP census

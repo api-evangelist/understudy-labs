@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Understudy Desktop Agent Capabilities Residency API",
+    "version": "2.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Residency",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Inspect local model residency and unified-memory budget",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://127.0.0.1:{port}/v1/residency"
+          },
+          "docs": "Inspect local model residency and unified-memory budget"
+        },
+        {
+          "info": {
+            "name": "Add an empty local model residency slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://127.0.0.1:{port}/v1/residency/slots"
+          },
+          "docs": "Add an empty local model residency slot"
+        },
+        {
+          "info": {
+            "name": "Assign an installed model to a residency slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://127.0.0.1:{port}/v1/residency/assign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign an installed model to a residency slot"
+        },
+        {
+          "info": {
+            "name": "Warm the assigned model asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://127.0.0.1:{port}/v1/residency/warm",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Warm the assigned model asynchronously"
+        },
+        {
+          "info": {
+            "name": "Stop the model process in a residency slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://127.0.0.1:{port}/v1/residency/cool",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stop the model process in a residency slot"
+        },
+        {
+          "info": {
+            "name": "Remove a residency slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://127.0.0.1:{port}/v1/residency/remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a residency slot"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Understudy Desktop Agent Capabilities Downloads API",
+    "version": "2.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Downloads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List active and recent model downloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://127.0.0.1:{port}/v1/downloads"
+          },
+          "docs": "List active and recent model downloads"
+        },
+        {
+          "info": {
+            "name": "Start downloading one certified model snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://127.0.0.1:{port}/v1/downloads",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start downloading one certified model snapshot"
+        },
+        {
+          "info": {
+            "name": "Inspect one exact model download",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://127.0.0.1:{port}/v1/downloads/:download_id",
+            "params": [
+              {
+                "name": "download_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Inspect one exact model download"
+        },
+        {
+          "info": {
+            "name": "Cancel one exact model download",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://127.0.0.1:{port}/v1/downloads/:download_id/cancel",
+            "params": [
+              {
+                "name": "download_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel one exact model download"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

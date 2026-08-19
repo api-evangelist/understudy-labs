@@ -1,0 +1,220 @@
+{
+  "item": [
+    {
+      "id": "7875d04a-c657-42fa-98a0-86285f966bdb",
+      "name": "Metrics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a05cdb62-4fe4-48c0-a67f-2a23d9ba2d06",
+          "name": "Inspect the rolling Pi adoption and Rust fallback deletion gate",
+          "request": {
+            "name": "Inspect the rolling Pi adoption and Rust fallback deletion gate",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "metrics",
+                "chat-routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "250"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e5d5916-6a35-4ad6-a2b4-4756559c4675",
+              "name": "Rolling canonical-runtime adoption metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "metrics",
+                    "chat-routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "250"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schema_version\": {},\n  \"app_version\": \"string\",\n  \"runtime_version\": \"string\",\n  \"observed_row_limit\": 101,\n  \"required_canonical_runtime_rows\": {},\n  \"remaining_canonical_runtime_rows\": 65,\n  \"canonical_runtime_rows\": 8531,\n  \"pi_runtime_rows\": 5708,\n  \"compatibility_fallback_rows\": 8122,\n  \"pi_runtime_share\": 0.8855942462968561,\n  \"compatibility_engine_delete_ready\": false,\n  \"groups\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 507.69078165090355\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f0b6896-3e36-4532-b7be-f98c85b0ed21",
+              "name": "Missing or invalid desktop bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "metrics",
+                    "chat-routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "250"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "17790",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "http://127.0.0.1:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "43524049-0518-4a07-8eb8-4dd15a1c7866",
+    "name": "Understudy Desktop Agent Capabilities Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Authenticated loopback API for agents operating a running Understudy Desktop app. The desktop capability file supplies the ephemeral base URL and bearer token. Prompts, images, traces, and model outputs remain local unless a caller explicitly selects a remote route.",
+      "type": "text/plain"
+    }
+  }
+}

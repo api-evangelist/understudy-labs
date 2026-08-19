@@ -1,0 +1,226 @@
+{
+  "item": [
+    {
+      "id": "147c9a57-ce89-43b8-bf5e-b8a0c21056fd",
+      "name": "Supervision",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e55e035b-d4a4-4a7b-8089-0bcd5e66cbc5",
+          "name": "Project canonical local journals into correction pairs and attributed metrics",
+          "request": {
+            "name": "Project canonical local journals into correction pairs and attributed metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "supervision",
+                "corrections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reviewed_only",
+                  "value": "false"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "427b011f-21cd-45db-95ca-b9d0bc979420",
+              "name": "Local correction pairs and metrics; the CLI writes immutable owner-only artifacts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "supervision",
+                    "corrections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reviewed_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Cache-Control",
+                  "value": "",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schema_version\": {},\n  \"correction_pairs\": [\n    {\n      \"schema_version\": {},\n      \"event_schema\": {},\n      \"runtime_id\": \"string\",\n      \"session_id\": \"9\",\n      \"run_id\": \"q.06euW\",\n      \"marker_id\": \"string\",\n      \"verdict_event_id\": \"string\",\n      \"verdict_sequence\": 29,\n      \"captured_at\": \"string\",\n      \"user_request\": \"string\",\n      \"student\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": 7656.162383320835\n      },\n      \"supervisor\": {\n        \"key_0\": \"string\",\n        \"key_1\": 1611.7289251601085\n      },\n      \"continuation\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7905.4986825380665,\n        \"key_2\": 5111.017710244302\n      },\n      \"tool_results\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"run_usage\": {\n        \"key_0\": 7952.14074775331,\n        \"key_1\": 872\n      },\n      \"human_judgment\": {\n        \"key_0\": 4359.39086006995,\n        \"key_1\": true,\n        \"key_2\": 3227\n      },\n      \"boundary_ordinal\": 9977,\n      \"decision_phase\": \"final\"\n    },\n    {\n      \"schema_version\": {},\n      \"event_schema\": {},\n      \"runtime_id\": \"string\",\n      \"session_id\": \"cgfnDCy7e\",\n      \"run_id\": \"vfz4\",\n      \"marker_id\": \"string\",\n      \"verdict_event_id\": \"string\",\n      \"verdict_sequence\": 7694,\n      \"captured_at\": \"string\",\n      \"user_request\": \"string\",\n      \"student\": {\n        \"key_0\": true\n      },\n      \"supervisor\": {\n        \"key_0\": 1650,\n        \"key_1\": 7545,\n        \"key_2\": 5033.894937702618\n      },\n      \"continuation\": {\n        \"key_0\": 8286\n      },\n      \"tool_results\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 2794.478180060399\n        },\n        {\n          \"key_0\": 1401,\n          \"key_1\": \"string\"\n        }\n      ],\n      \"run_usage\": {\n        \"key_0\": \"string\"\n      },\n      \"human_judgment\": {\n        \"key_0\": 2505.571609872943,\n        \"key_1\": \"string\"\n      },\n      \"boundary_ordinal\": 5607,\n      \"decision_phase\": \"final\"\n    }\n  ],\n  \"metrics\": {\n    \"schema_version\": {},\n    \"objective\": {},\n    \"review_filter\": \"string\",\n    \"exported_pair_count\": 4554,\n    \"complete_pair_count\": 7708,\n    \"reviewed_pair_count\": 4823,\n    \"pending_pair_count\": 8628,\n    \"incomplete_intervention_count\": 7752,\n    \"truncated_intervention_count\": 548,\n    \"invalid_journal_count\": 2283,\n    \"missing_journal_count\": 6359,\n    \"truncated_journal_count\": 9078,\n    \"intervention_precision\": 0.8717525529928379,\n    \"false_positive_nudge_rate\": 0.9191521231942191,\n    \"usage\": {\n      \"eligible_run_count\": true,\n      \"excluded_run_count\": true,\n      \"student\": 3368.287146131338,\n      \"supervisor\": 822.9876311645901,\n      \"teacher\": 2780.7195059913893,\n      \"small_model_output_share\": \"string\",\n      \"supervisor_token_overhead\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90cc2703-1e6b-4a9a-8ad0-ba09631b3a14",
+              "name": "Missing or invalid desktop bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "supervision",
+                    "corrections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reviewed_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "17790",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "http://127.0.0.1:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3aaae5be-2fc3-425f-a5fa-1082c075b900",
+    "name": "Understudy Desktop Agent Capabilities Supervision API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Authenticated loopback API for agents operating a running Understudy Desktop app. The desktop capability file supplies the ephemeral base URL and bearer token. Prompts, images, traces, and model outputs remain local unless a caller explicitly selects a remote route.",
+      "type": "text/plain"
+    }
+  }
+}
