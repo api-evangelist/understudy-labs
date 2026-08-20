@@ -33,6 +33,16 @@ modified: '2026-07-21'
 tags:
 - Artificial Intelligence
 - LLM Gateway
+- Machine-Learning
+- Open-Source
+- Model Routing
+- Evaluations
+- Fine-Tuning
+- AI Infrastructure
+- Developer Tools
+tags_raw:
+- Artificial Intelligence
+- LLM Gateway
 - Machine Learning
 - Open Source
 - Model Routing
@@ -71,6 +81,11 @@ apis:
   humanURL: https://docs.understudylabs.com/reference/control-plane
   baseURL: https://api.understudylabs.com
   tags:
+  - Control Plane
+  - APIKeys
+  - Routing
+  - Evaluations
+  tags_raw:
   - Control Plane
   - API Keys
   - Routing
