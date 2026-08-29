@@ -9,6 +9,18 @@ description: Understudy Labs (YC S26) is an LLM gateway and model-optimization p
   repo ships a CLI, a coding-agent skill library, a local MCP server, and Understudy Desktop
   with a documented loopback OpenAPI 3.1 contract.
 url: https://raw.githubusercontent.com/api-evangelist/understudy-labs/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
