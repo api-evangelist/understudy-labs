@@ -2,20 +2,27 @@ arazzo: 1.0.1
 info:
   title: Download, warm, and chat with a local model on Understudy Desktop
   version: 1.0.0
-  summary: The core Understudy Desktop journey over the loopback Agent API -
-    pick a model from the catalog, start and track its download, add a
-    residency slot, assign and warm the model in the slot, then send a
-    conversation turn and stream the run's events.
+  summary: The core Understudy Desktop journey over the loopback Agent API - pick a model from the catalog, start and track its download, add a residency slot, assign and warm the model in the slot, then send a conversation turn and stream the run's events.
 sourceDescriptions:
-- name: desktopApi
-  url: ../openapi/understudy-labs-desktop-api-openapi.json
+- name: conversationsApi
+  url: ../openapi/understudy-labs-conversations-api-openapi.yml
+  type: openapi
+- name: downloadsApi
+  url: ../openapi/understudy-labs-downloads-api-openapi.yml
+  type: openapi
+- name: modelsApi
+  url: ../openapi/understudy-labs-models-api-openapi.yml
+  type: openapi
+- name: residencyApi
+  url: ../openapi/understudy-labs-residency-api-openapi.yml
+  type: openapi
+- name: runsApi
+  url: ../openapi/understudy-labs-runs-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: download-warm-and-chat
   summary: From catalog to a locally-served conversation turn.
-  description: All calls target the authenticated loopback API described by the
-    desktop capability file. Nothing leaves the machine unless a remote route
-    is explicitly selected.
+  description: All calls target the authenticated loopback API described by the desktop capability file. Nothing leaves the machine unless a remote route is explicitly selected.
   inputs:
     type: object
     properties:
