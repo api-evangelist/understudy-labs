@@ -49,7 +49,7 @@ tags:
 - Machine-Learning
 - Open-Source
 - Model Routing
-- Evaluations
+- Evaluation
 - Fine-Tuning
 - AI Infrastructure
 - Developer Tools
@@ -97,7 +97,7 @@ apis:
   - Control Plane
   - APIKeys
   - Routing
-  - Evaluations
+  - Evaluation
   tags_raw:
   - Control Plane
   - API Keys
