@@ -1,16 +1,7 @@
 {
   "provider": "understudy-labs",
   "sources": [
-    "understudy-labs-capabilities-api-openapi.yml",
-    "understudy-labs-conversations-api-openapi.yml",
-    "understudy-labs-downloads-api-openapi.yml",
-    "understudy-labs-feedback-api-openapi.yml",
-    "understudy-labs-metrics-api-openapi.yml",
-    "understudy-labs-models-api-openapi.yml",
-    "understudy-labs-residency-api-openapi.yml",
-    "understudy-labs-runs-api-openapi.yml",
-    "understudy-labs-status-api-openapi.yml",
-    "understudy-labs-supervision-api-openapi.yml"
+    "_original/understudy-labs-desktop-api-openapi.json"
   ],
   "outputs": [
     "understudy-labs-capabilities-api-openapi.yml",
@@ -27,6 +18,51 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "understudy-labs-desktop-api-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/capabilities -> Capabilities",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/status -> Status",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/metrics/chat-routes -> Metrics",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/models -> Models",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/models/catalog -> Models",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/residency -> Residency",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/residency/slots -> Residency",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/residency/assign -> Residency",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/residency/warm -> Residency",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/residency/cool -> Residency",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/residency/remove -> Residency",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/downloads -> Downloads",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/downloads -> Downloads",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/downloads/{download_id} -> Downloads",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/downloads/{download_id}/cancel -> Downloads",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/conversations/{session_id}/turns -> Conversations",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/runs/{run_id}/cancel -> Runs",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/runs/{run_id}/events -> Runs",
+    "understudy-labs-desktop-api-openapi.json: tagged paths GET /v1/supervision/corrections -> Supervision",
+    "understudy-labs-desktop-api-openapi.json: tagged paths POST /v1/feedback/supervisor -> Feedback",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Capabilities",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Conversations",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Downloads",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Feedback",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Metrics",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Models",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Residency",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Runs",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Status",
+    "understudy-labs-desktop-api-openapi.json: declared missing tag: Supervision",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "understudy-labs-capabilities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-conversations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-downloads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-feedback-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-residency-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "understudy-labs-supervision-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

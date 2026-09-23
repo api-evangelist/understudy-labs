@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Understudy Desktop Agent Capabilities Runs API
+  title: Understudy Desktop Agent Runs API
   version: 2.2.0
   description: Authenticated loopback API for agents operating a running Understudy Desktop app. The desktop capability file supplies the ephemeral base URL and bearer token. Prompts, images, traces, and model outputs remain local unless a caller explicitly selects a remote route.
 servers:
@@ -54,10 +54,14 @@ paths:
       tags:
       - Runs
 components:
+  parameters:
+    RunId:
+      name: run_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AgentId'
   schemas:
-    ErrorResponse:
-      type: string
-      description: A bounded plain-text error. Clients must not treat it as model output.
     RuntimeEventEnvelope:
       type: object
       required:
@@ -128,6 +132,9 @@ components:
       minLength: 1
       maxLength: 200
       pattern: ^[A-Za-z0-9._:-]+$
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
   responses:
     Unauthorized:
       description: Missing or invalid desktop bearer token
@@ -141,13 +148,6 @@ components:
         text/plain:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    RunId:
-      name: run_id
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/AgentId'
   securitySchemes:
     desktopBearer:
       type: http
