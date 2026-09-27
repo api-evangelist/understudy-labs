@@ -137,20 +137,6 @@ components:
           type: integer
           minimum: 1
       additionalProperties: false
-    SlotOperationResponse:
-      type: object
-      required:
-      - ok
-      - slot_id
-      properties:
-        ok:
-          const: true
-        slot_id:
-          type: integer
-          minimum: 1
-        state:
-          type: string
-      additionalProperties: true
     ResidencySnapshot:
       type: object
       required:
@@ -206,6 +192,20 @@ components:
           type: string
           minLength: 1
       additionalProperties: false
+    SlotOperationResponse:
+      type: object
+      required:
+      - ok
+      - slot_id
+      properties:
+        ok:
+          const: true
+        slot_id:
+          type: integer
+          minimum: 1
+        state:
+          type: string
+      additionalProperties: true
     ErrorResponse:
       type: string
       description: A bounded plain-text error. Clients must not treat it as model output.
@@ -217,14 +217,14 @@ components:
           schema:
             $ref: '#/components/schemas/SlotActionRequest'
   responses:
-    BadRequest:
-      description: Invalid request
+    Unauthorized:
+      description: Missing or invalid desktop bearer token
       content:
         text/plain:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid desktop bearer token
+    BadRequest:
+      description: Invalid request
       content:
         text/plain:
           schema:

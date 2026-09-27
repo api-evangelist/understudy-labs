@@ -31,13 +31,13 @@ paths:
       - Status
 components:
   schemas:
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
     StatusDocument:
       type: object
       description: Desktop status is forward-compatible; clients should inspect only fields they understand.
       additionalProperties: true
-    ErrorResponse:
-      type: string
-      description: A bounded plain-text error. Clients must not treat it as model output.
   responses:
     Unauthorized:
       description: Missing or invalid desktop bearer token

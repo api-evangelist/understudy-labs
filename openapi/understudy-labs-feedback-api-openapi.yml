@@ -39,6 +39,19 @@ paths:
       - Feedback
 components:
   schemas:
+    OkResponse:
+      type: object
+      required:
+      - ok
+      properties:
+        ok:
+          const: true
+      additionalProperties: true
+    AgentId:
+      type: string
+      minLength: 1
+      maxLength: 200
+      pattern: ^[A-Za-z0-9._:-]+$
     SupervisorFeedbackRequest:
       type: object
       required:
@@ -77,19 +90,6 @@ components:
           type: string
           maxLength: 4000
       additionalProperties: false
-    OkResponse:
-      type: object
-      required:
-      - ok
-      properties:
-        ok:
-          const: true
-      additionalProperties: true
-    AgentId:
-      type: string
-      minLength: 1
-      maxLength: 200
-      pattern: ^[A-Za-z0-9._:-]+$
     ErrorResponse:
       type: string
       description: A bounded plain-text error. Clients must not treat it as model output.

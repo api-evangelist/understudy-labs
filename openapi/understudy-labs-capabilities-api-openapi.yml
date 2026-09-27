@@ -31,6 +31,9 @@ paths:
       - Capabilities
 components:
   schemas:
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
     DesktopCapabilities:
       type: object
       required:
@@ -59,9 +62,6 @@ components:
           additionalProperties:
             type: string
       additionalProperties: true
-    ErrorResponse:
-      type: string
-      description: A bounded plain-text error. Clients must not treat it as model output.
   responses:
     Unauthorized:
       description: Missing or invalid desktop bearer token

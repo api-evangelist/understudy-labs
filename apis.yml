@@ -46,8 +46,8 @@ modified: '2026-07-21'
 tags:
 - Artificial Intelligence
 - LLM Gateway
-- Machine-Learning
-- Open-Source
+- Machine Learning
+- Open Source
 - Model Routing
 - Evaluation
 - Fine-Tuning
@@ -63,6 +63,8 @@ tags_raw:
 - Fine-Tuning
 - AI Infrastructure
 - Developer Tools
+- Machine-Learning
+- Open-Source
 apis:
 - aid: understudy-labs:understudy-gateway-api
   name: Understudy Gateway API
