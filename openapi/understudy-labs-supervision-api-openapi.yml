@@ -120,27 +120,6 @@ components:
           - supervisor_token_overhead
           additionalProperties: true
       additionalProperties: true
-    AgentId:
-      type: string
-      minLength: 1
-      maxLength: 200
-      pattern: ^[A-Za-z0-9._:-]+$
-    SupervisionExportPacket:
-      type: object
-      required:
-      - schema_version
-      - correction_pairs
-      - metrics
-      properties:
-        schema_version:
-          const: understudy.supervision.export_packet.v1
-        correction_pairs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CorrectionPair'
-        metrics:
-          $ref: '#/components/schemas/SupervisionMetrics'
-      additionalProperties: false
     CorrectionPair:
       type: object
       required:
@@ -222,6 +201,27 @@ components:
           - object
           - 'null'
           additionalProperties: true
+      additionalProperties: false
+    AgentId:
+      type: string
+      minLength: 1
+      maxLength: 200
+      pattern: ^[A-Za-z0-9._:-]+$
+    SupervisionExportPacket:
+      type: object
+      required:
+      - schema_version
+      - correction_pairs
+      - metrics
+      properties:
+        schema_version:
+          const: understudy.supervision.export_packet.v1
+        correction_pairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorrectionPair'
+        metrics:
+          $ref: '#/components/schemas/SupervisionMetrics'
       additionalProperties: false
     ErrorResponse:
       type: string
