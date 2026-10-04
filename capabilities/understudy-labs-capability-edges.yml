@@ -1,0 +1,26 @@
+slug: understudy-labs
+provider: Understudy Labs
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Models
+  spec_file: understudy-labs-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: GET /v1/models/catalog  desktopModelCatalog  List the certified model snapshot catalog with
+    local cache state
+  reason: Operations enumerate available and locally cached ML model snapshots from a certified catalog
+    — model inventory/registry work, which falls under AI/ML model lifecycle (MLOps). Confidence moderated
+    because the surface is read-only listing rather than full lifecycle management.
