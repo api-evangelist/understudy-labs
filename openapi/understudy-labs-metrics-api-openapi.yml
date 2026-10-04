@@ -39,9 +39,6 @@ paths:
       - Metrics
 components:
   schemas:
-    ErrorResponse:
-      type: string
-      description: A bounded plain-text error. Clients must not treat it as model output.
     MigrationStatus:
       type: object
       required:
@@ -99,6 +96,9 @@ components:
             type: object
             additionalProperties: true
       additionalProperties: true
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
   responses:
     Unauthorized:
       description: Missing or invalid desktop bearer token

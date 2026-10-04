@@ -67,6 +67,13 @@ components:
         text/plain:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    RunId:
+      name: run_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AgentId'
   schemas:
     CancelResponse:
       type: object
@@ -141,13 +148,6 @@ components:
     ErrorResponse:
       type: string
       description: A bounded plain-text error. Clients must not treat it as model output.
-  parameters:
-    RunId:
-      name: run_id
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/AgentId'
   securitySchemes:
     desktopBearer:
       type: http

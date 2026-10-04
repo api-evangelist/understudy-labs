@@ -127,33 +127,7 @@ paths:
       tags:
       - Residency
 components:
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid desktop bearer token
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    AssignSlotRequest:
-      type: object
-      required:
-      - slot_id
-      - model_id
-      properties:
-        slot_id:
-          type: integer
-          minimum: 1
-        model_id:
-          type: string
-          minLength: 1
-      additionalProperties: false
     SlotOperationResponse:
       type: object
       required:
@@ -168,6 +142,15 @@ components:
         state:
           type: string
       additionalProperties: true
+    SlotActionRequest:
+      type: object
+      required:
+      - slot_id
+      properties:
+        slot_id:
+          type: integer
+          minimum: 1
+      additionalProperties: false
     ResidencySnapshot:
       type: object
       required:
@@ -210,18 +193,35 @@ components:
           type: number
           minimum: 0
       additionalProperties: true
-    ErrorResponse:
-      type: string
-      description: A bounded plain-text error. Clients must not treat it as model output.
-    SlotActionRequest:
+    AssignSlotRequest:
       type: object
       required:
       - slot_id
+      - model_id
       properties:
         slot_id:
           type: integer
           minimum: 1
+        model_id:
+          type: string
+          minLength: 1
       additionalProperties: false
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
+  responses:
+    Unauthorized:
+      description: Missing or invalid desktop bearer token
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   requestBodies:
     SlotAction:
       required: true
