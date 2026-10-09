@@ -3,6 +3,17 @@ info:
   title: Download, warm, and chat with a local model on Understudy Desktop
   version: 1.0.0
   summary: The core Understudy Desktop journey over the loopback Agent API - pick a model from the catalog, start and track its download, add a residency slot, assign and warm the model in the slot, then send a conversation turn and stream the run's events.
+  x-realizes-capability-ids:
+  - BC-610.60
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-610.60
+      capability_name: Artificial Intelligence Management
+      spec: understudy-labs-models-api-openapi.yml
+      confidence: 0.7
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: conversationsApi
   url: ../openapi/understudy-labs-conversations-api-openapi.yml
