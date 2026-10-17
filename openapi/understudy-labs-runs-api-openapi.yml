@@ -54,27 +54,10 @@ paths:
       tags:
       - Runs
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid desktop bearer token
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested run or trace was not found
-      content:
-        text/plain:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    RunId:
-      name: run_id
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/AgentId'
   schemas:
+    ErrorResponse:
+      type: string
+      description: A bounded plain-text error. Clients must not treat it as model output.
     CancelResponse:
       type: object
       required:
@@ -89,11 +72,6 @@ components:
         run_id:
           $ref: '#/components/schemas/AgentId'
       additionalProperties: false
-    AgentId:
-      type: string
-      minLength: 1
-      maxLength: 200
-      pattern: ^[A-Za-z0-9._:-]+$
     RuntimeEventEnvelope:
       type: object
       required:
@@ -145,9 +123,31 @@ components:
           type: object
           additionalProperties: true
       additionalProperties: false
-    ErrorResponse:
+    AgentId:
       type: string
-      description: A bounded plain-text error. Clients must not treat it as model output.
+      minLength: 1
+      maxLength: 200
+      pattern: ^[A-Za-z0-9._:-]+$
+  parameters:
+    RunId:
+      name: run_id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AgentId'
+  responses:
+    Unauthorized:
+      description: Missing or invalid desktop bearer token
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested run or trace was not found
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     desktopBearer:
       type: http
